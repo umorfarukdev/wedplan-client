@@ -13,9 +13,30 @@ export const auth = betterAuth({
     additionalFields: {
       role: {
         type: "string",
-        defaultValue: "customer",
         required: false,
-        input: true,
+        defaultValue: "customer",
+        input: false,
+      },
+      isBlocked: {
+        type: "boolean",
+        required: false,
+        defaultValue: false,
+        input: false,
+      },
+      businessName: {
+        type: "string",
+        required: false,
+      },
+      subscriptionPlan: {
+        type: "string",
+        required: false,
+        defaultValue: "free",
+        input: false,
+      },
+      subscriptionExpiresAt: {
+        type: "date",
+        required: false,
+        input: false,
       },
     },
   },

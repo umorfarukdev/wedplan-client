@@ -49,10 +49,8 @@ export default function ProfileDropdown({ closeMenu }) {
 
   const dashboardPath = {
     admin: "/dashboard/admin",
-    vendor: "/dashboard/vendor",
-    vendors: "/dashboard/vendor",
-    customer: "/dashboard/customer",
-    customers: "/dashboard/customer",
+    vendor: "/dashboard/vendor/overview",
+    customer: "/dashboard/customer/overview",
   };
   const role = user.role || "customer";
   const userDashboard = dashboardPath[role] || "/dashboard/customer";

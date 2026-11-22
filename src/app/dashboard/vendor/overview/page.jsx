@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -7,18 +6,10 @@ import {
   BriefcaseBusiness,
   CheckCircle,
   Clock,
-  Plus,
   CalendarDays,
-  CreditCard,
 } from "lucide-react";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 const stats = [
@@ -58,9 +49,7 @@ export default function VendorDashboard() {
                     <p className="text-sm text-muted-foreground">
                       {item.title}
                     </p>
-                    <h2 className="mt-2 text-3xl font-bold">
-                      {item.value}
-                    </h2>
+                    <h2 className="mt-2 text-3xl font-bold">{item.value}</h2>
                   </div>
                   <Icon className="h-9 w-9 text-primary" />
                 </CardContent>
@@ -69,7 +58,7 @@ export default function VendorDashboard() {
           })}
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2">
+        {/* <div className="grid gap-5 md:grid-cols-2">
           <Card>
             <CardHeader>
               <CardTitle>Service Management</CardTitle>
@@ -138,9 +127,8 @@ export default function VendorDashboard() {
               </Link>
             </Button>
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
     </div>
   );
 }
-
