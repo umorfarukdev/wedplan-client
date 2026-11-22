@@ -1,10 +1,17 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, CalendarDays, CheckCircle2, MapPin, Tag } from "lucide-react";
+import {
+  ArrowLeft,
+  CalendarDays,
+  CheckCircle2,
+  MapPin,
+  Tag,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { getServiceById } from '@/lib/api/services';
+import { getServiceById } from "@/lib/api/services";
+import BookService from "@/components/services/BookService";
 
 const ServiceDetailsPage = async ({ params }) => {
   const { serviceId } = await params;
@@ -147,14 +154,11 @@ const ServiceDetailsPage = async ({ params }) => {
                 <div className="border-t" />
 
                 {/* Booking Button */}
-                <Button
-                  asChild
-                  className="h-12 w-full bg-rose-600 text-base text-white hover:bg-rose-700"
-                >
-                  <Link href={`/booking?serviceId=${service._id}`}>
-                    Book This Service
-                  </Link>
-                </Button>
+                <BookService
+                  serviceId={serviceId}
+                  serviceName={serviceName}
+                  price={price}
+                />
 
                 <p className="text-center text-xs text-muted-foreground">
                   Contact us to make your special day memorable.
