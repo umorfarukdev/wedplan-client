@@ -1,8 +1,8 @@
 
 "use client";
 
-import { useCallback,  useState } from "react";
-import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import {
   CalendarDays,
@@ -29,6 +29,7 @@ import { getVendorBookings, updateBookingStatus } from "@/lib/actions/booking";
 
 
 const BookingRequestsPage = () => {
+  const router = useRouter();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [updatingId, setUpdatingId] = useState(null);
@@ -113,6 +114,36 @@ const BookingRequestsPage = () => {
 
     return styles[status] || "bg-gray-100 text-gray-600";
   };
+
+  useEffect(() => {
+    let isMounted = true;
+    const loadData = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+          toast.error("Please login to continue.");
+          if (isMounted) setLoading(false);
+          return;
+        }
+        const data = await getVendorBookings(token);
+        if (isMounted) {
+          setBookings(Array.isArray(data) ? data : []);
+        }
+      } catch (error) {
+        if (isMounted) {
+          toast.error(error.message || "Failed to load booking requests.");
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+    loadData();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   if (loading) {
     return (
@@ -223,7 +254,7 @@ const BookingRequestsPage = () => {
                 <Button
                   className="mt-5 bg-rose-600 text-white hover:bg-rose-700"
                   onClick={() => {
-                    window.location.href = "/dashboard/vendor/services";
+                    router.push("/dashboard/vendor/services");
                   }}
                 >
                   Manage My Services

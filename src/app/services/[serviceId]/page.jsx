@@ -115,54 +115,9 @@ const ServiceDetailsPage = async ({ params }) => {
           {/* Right Side - Booking Card */}
           <div>
             <Card className="sticky top-24 rounded-2xl shadow-md">
-              <CardHeader>
-                <CardTitle>Service Information</CardTitle>
-              </CardHeader>
-
               <CardContent className="space-y-6">
-                {/* Price */}
-                <div>
-                  <p className="text-sm text-muted-foreground">
-                    Starting Price
-                  </p>
-
-                  <p className="mt-1 text-3xl font-bold text-rose-600">
-                    ৳{Number(price).toLocaleString("en-BD")}
-                  </p>
-                </div>
-
-                <div className="border-t" />
-
-                {/* Details */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <CheckCircle2 className="size-5 text-green-600" />
-                    <span className="text-sm">Professional Service</span>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <MapPin className="size-5 text-rose-500" />
-                    <span className="text-sm">{location}</span>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <CalendarDays className="size-5 text-rose-500" />
-                    <span className="text-sm">Booking Available</span>
-                  </div>
-                </div>
-
-                <div className="border-t" />
-
                 {/* Booking Button */}
-                <BookService
-                  serviceId={serviceId}
-                  serviceName={serviceName}
-                  price={price}
-                />
-
-                <p className="text-center text-xs text-muted-foreground">
-                  Contact us to make your special day memorable.
-                </p>
+                <BookService service={service} />
               </CardContent>
             </Card>
           </div>

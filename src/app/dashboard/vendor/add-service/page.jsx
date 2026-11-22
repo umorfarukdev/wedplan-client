@@ -1,10 +1,17 @@
+
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Image from "next/image";
-import { Upload, X, ImagePlus, Loader2, ArrowLeft } from "lucide-react";
+import {
+  Upload,
+  X,
+  ImagePlus,
+  Loader2,
+  ArrowLeft,
+} from "lucide-react";
 
 import Link from "next/link";
 
@@ -20,6 +27,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { createService } from "@/lib/actions/service";
+
 
 const categories = [
   "Photography & Videography",
@@ -112,7 +120,7 @@ const AddServicePage = () => {
       {
         method: "POST",
         body: formData,
-      },
+      }
     );
 
     const data = await response.json();
@@ -132,13 +140,12 @@ const AddServicePage = () => {
       toast.error("Please upload at least one service image.");
       return;
     }
-
     setLoading(true);
 
     try {
       // Upload all images to ImgBB
       const uploadedImages = await Promise.all(
-        images.map((image) => uploadImage(image)),
+        images.map((image) => uploadImage(image))
       );
 
       const serviceData = {
@@ -147,18 +154,10 @@ const AddServicePage = () => {
         images: uploadedImages,
       };
 
-      // Use your existing JWT storage key here.
-      const token = localStorage.getItem("accessToken");
-
-      if (!token) {
-        throw new Error("Please login before publishing a service.");
-      }
-
       await createService(serviceData, token);
 
       toast.success("Service submitted for admin review!");
 
-      router.push("/dashboard/vendor/services");
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -167,9 +166,11 @@ const AddServicePage = () => {
       setLoading(false);
     }
   };
+
   return (
     <main className="min-h-screen bg-muted/30 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl space-y-6">
+
         {/* Header */}
         <div className="space-y-3">
           <Link
@@ -186,27 +187,31 @@ const AddServicePage = () => {
             </h1>
 
             <p className="mt-2 text-sm text-muted-foreground">
-              Publish a new wedding package. Submissions start as Pending until
-              reviewed by an administrator.
+              Publish a new wedding package. Submissions start as
+              Pending until reviewed by an administrator.
             </p>
           </div>
         </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
+
           <Card className="rounded-2xl">
             <CardHeader>
               <CardTitle>Service Details</CardTitle>
               <CardDescription>
-                Provide clear pricing, location coverage, and high-resolution
-                photographs.
+                Provide clear pricing, location coverage, and
+                high-resolution photographs.
               </CardDescription>
             </CardHeader>
 
             <CardContent className="space-y-5">
+
               {/* Service Name */}
               <div className="space-y-2">
-                <Label htmlFor="serviceName">Service Name *</Label>
+                <Label htmlFor="serviceName">
+                  Service Name *
+                </Label>
 
                 <Input
                   id="serviceName"
@@ -222,8 +227,11 @@ const AddServicePage = () => {
 
               {/* Category and Price */}
               <div className="grid gap-5 sm:grid-cols-2">
+
                 <div className="space-y-2">
-                  <Label htmlFor="category">Service Category *</Label>
+                  <Label htmlFor="category">
+                    Service Category *
+                  </Label>
 
                   <select
                     id="category"
@@ -246,7 +254,9 @@ const AddServicePage = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="price">Starting Price (USD) *</Label>
+                  <Label htmlFor="price">
+                    Starting Price (USD) *
+                  </Label>
 
                   <Input
                     id="price"
@@ -263,7 +273,9 @@ const AddServicePage = () => {
 
               {/* Location */}
               <div className="space-y-2">
-                <Label htmlFor="location">Location / Coverage Area *</Label>
+                <Label htmlFor="location">
+                  Location / Coverage Area *
+                </Label>
 
                 <Input
                   id="location"
@@ -277,7 +289,9 @@ const AddServicePage = () => {
 
               {/* Description */}
               <div className="space-y-2">
-                <Label htmlFor="description">Service Description *</Label>
+                <Label htmlFor="description">
+                  Service Description *
+                </Label>
 
                 <Textarea
                   id="description"
@@ -303,12 +317,13 @@ const AddServicePage = () => {
             <CardHeader>
               <CardTitle>Service Images</CardTitle>
               <CardDescription>
-                Upload up to 6 high-quality photographs. The first image will be
-                your cover image.
+                Upload up to 6 high-quality photographs.
+                The first image will be your cover image.
               </CardDescription>
             </CardHeader>
 
             <CardContent className="space-y-5">
+
               <label
                 htmlFor="serviceImages"
                 className="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-muted-foreground/30 bg-muted/30 px-6 py-10 text-center transition hover:border-rose-500 hover:bg-rose-50/50"
@@ -404,6 +419,7 @@ const AddServicePage = () => {
               )}
             </Button>
           </div>
+
         </form>
       </div>
     </main>

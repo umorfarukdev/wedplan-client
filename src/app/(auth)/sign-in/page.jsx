@@ -15,6 +15,10 @@ import {
 } from "@/components/ui/card";
 import { signIn } from "@/app/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { Separator } from "@/components/ui/separator";
+import GoogleSign from "@/components/shared/GoogleSign";
+
+const role = "customer" || "vendor" | "admin";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -40,7 +44,7 @@ export default function LoginPage() {
       }
 
       toast.success("Login successful!");
-      router.push("/dashboard");
+      router.push(`/dashboard/${role}/overview`);
     } catch (error) {
       toast.error(error.message || "Login failed.");
     }
@@ -93,6 +97,10 @@ export default function LoginPage() {
             <Button type="submit" className="w-full">
               Login
             </Button>
+
+            <Separator></Separator>
+
+            <GoogleSign className="w-full" />
 
             <p className="text-center text-sm text-muted-foreground">
               Do not have an account?{" "}

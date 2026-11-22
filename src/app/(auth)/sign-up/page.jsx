@@ -16,8 +16,12 @@ import {
 } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { signUp } from "@/app/lib/auth-client";
+import { Separator } from "@/components/ui/separator";
+import GoogleSign from "@/components/shared/GoogleSign";
+import { useState } from "react";
 
 export default function RegisterPage() {
+  const [role, setRole] = useState("customer");
   const router = useRouter();
 
   const handleRegister = async (e) => {
@@ -26,7 +30,7 @@ export default function RegisterPage() {
     const formData = new FormData(e.currentTarget);
 
     const data = Object.fromEntries(formData.entries());
-    const { name, email, password, role } = data;
+    const { name, email, password } = data;
 
     if (!["customer", "vendor"].includes(role)) {
       toast.error("Please select a valid account type.");
@@ -108,7 +112,8 @@ export default function RegisterPage() {
               <Label>Select Account Type</Label>
 
               <RadioGroup
-                name="role"
+                value={role}
+                onValueChange={setRole}
                 defaultValue="customer"
                 className="grid grid-cols-2 gap-3"
               >
@@ -133,6 +138,9 @@ export default function RegisterPage() {
             <Button type="submit" className="w-full">
               Create Account
             </Button>
+            <Separator></Separator>
+
+            <GoogleSign role={role} className="w-full" />
 
             <p className="text-center text-sm text-muted-foreground">
               Already have an account?{" "}
