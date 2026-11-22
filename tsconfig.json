@@ -36,7 +36,7 @@
     "**/*.mts",
     "**/*.ts",
     "**/*.tsx"
-, "src/dashboard/layout.jsx"  ],
+, "src/dashboard/layout.jsx", "src/app/services/[serviceId]/page.jsx"  ],
   "exclude": [
     "node_modules"
   ],

@@ -9,7 +9,7 @@ export const getAllServices = async () => {
 }
 
 export const getServiceById = async (id) => {
-    const response = await fetch(`${BASE_URL}/services/${id}`);
+    const response = await fetch(`${BASE_URL}/service/${id}`);
     if (!response.ok) {
         throw new Error("Failed to fetch service");
     }

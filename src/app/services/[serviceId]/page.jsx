@@ -1,49 +1,16 @@
-import Image from "next/image";
-import Link from "next/link";
-import {
-  MapPin,
-  ArrowLeft,
-  CalendarDays,
-  Tag,
-  CheckCircle2,
-} from "lucide-react";
-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { getServiceById } from "@/lib/api/services";
-
-
-
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowLeft, CalendarDays, CheckCircle2, MapPin, Tag } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { getServiceById } from '@/lib/api/services';
 
 const ServiceDetailsPage = async ({ params }) => {
-  const { id } = await params;
+  const { serviceId } = await params;
 
-  console.log("data ace ki" ,id, params);
-
-  // Fetch service details
-  const service = await getServiceById(id);
-
+  const service = await getServiceById(serviceId);
   console.log(service);
-
-  if (!service) {
-    return (
-      <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 text-center">
-        <h2 className="text-2xl font-bold">Service Not Found!</h2>
-        <p className="mt-2 text-muted-foreground">
-          The service you are looking for does not exist.
-        </p>
-        <Button asChild className="mt-5 bg-rose-600 hover:bg-rose-700">
-          <Link href="/services">Back to Services</Link>
-        </Button>
-      </div>
-    );
-  }
 
   const {
     serviceName,
@@ -53,11 +20,9 @@ const ServiceDetailsPage = async ({ params }) => {
     location,
     images = [],
   } = service;
-
   return (
     <main className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-10">
-
         {/* Back Button */}
         <Link
           href="/services"
@@ -68,10 +33,8 @@ const ServiceDetailsPage = async ({ params }) => {
         </Link>
 
         <div className="grid gap-10 lg:grid-cols-3">
-
           {/* Left Side */}
           <div className="space-y-6 lg:col-span-2">
-
             {/* Main Image */}
             <div className="relative h-[300px] overflow-hidden rounded-2xl sm:h-[450px]">
               <Image
@@ -137,9 +100,7 @@ const ServiceDetailsPage = async ({ params }) => {
                   About This Service
                 </h2>
 
-                <p className="leading-8 text-muted-foreground">
-                  {description}
-                </p>
+                <p className="leading-8 text-muted-foreground">{description}</p>
               </div>
             </div>
           </div>
@@ -152,7 +113,6 @@ const ServiceDetailsPage = async ({ params }) => {
               </CardHeader>
 
               <CardContent className="space-y-6">
-
                 {/* Price */}
                 <div>
                   <p className="text-sm text-muted-foreground">
@@ -202,7 +162,6 @@ const ServiceDetailsPage = async ({ params }) => {
               </CardContent>
             </Card>
           </div>
-
         </div>
       </div>
     </main>

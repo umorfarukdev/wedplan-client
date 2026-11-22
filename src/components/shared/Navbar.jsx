@@ -25,7 +25,7 @@ import ProfileDropdown from "./ProfileDropdown";
 
 const navLinks = [
   { name: "Home", href: "/", icon: Home },
-  { name: "Browse Services", href: "/browse-services", icon: BriefcaseBusiness },
+  { name: "Browse Services", href: "/services", icon: BriefcaseBusiness },
 ];
 
 export default function Navbar() {

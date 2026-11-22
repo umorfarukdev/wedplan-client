@@ -59,13 +59,12 @@ const ServiceCard = ({ service }) => {
 
       {/* Card Footer */}
       <CardFooter className="px-5 pb-5 pt-0">
-        <Button
-          render={<Link href={`/services/${_id}`} />}
+        <Link href={`/services/${_id}`} 
           className="w-full bg-rose-600 text-white hover:bg-rose-700"
         >
           View Details
           <ArrowUpRight className="size-4" />
-        </Button>
+        </Link>
       </CardFooter>
     </Card>
   );
