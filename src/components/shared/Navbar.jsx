@@ -21,6 +21,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import ProfileDropdown from "./ProfileDropdown";
 
 const navLinks = [
   { name: "Home", href: "/", icon: Home },
@@ -70,22 +71,7 @@ export default function Navbar() {
 
         {/* Desktop Actions */}
         <div className="hidden items-center gap-3 lg:flex">
-          <Button
-            nativeButton={false}
-            variant="ghost"
-            render={<Link href="/sign-in" />}
-          >
-            Login
-          </Button>
-
-          <Button
-            nativeButton={false}
-            className="rounded-full bg-rose-500 px-5 text-white hover:bg-rose-600"
-            render={<Link href="/sign-up" />}
-          >
-            Get Started
-            <ArrowRight className="ml-2 size-4" />
-          </Button>
+          <ProfileDropdown closeMenu={closeMenu} />
         </div>
 
         {/* Mobile Menu */}
@@ -149,21 +135,7 @@ export default function Navbar() {
 
                 {/* Mobile Actions */}
                 <div className="space-y-3 border-t p-5">
-                  <Button
-                    variant="outline"
-                    className="w-full rounded-full"
-                    render={<Link href="/sign-in" onClick={closeMenu} />}
-                  >
-                    Login
-                  </Button>
-
-                  <Button
-                    className="w-full rounded-full bg-rose-500 text-white hover:bg-rose-600"
-                    render={<Link href="/sign-up" onClick={closeMenu} />}
-                  >
-                    Get Started
-                    <ArrowRight className="ml-2 size-4" />
-                  </Button>
+                  <ProfileDropdown closeMenu={closeMenu} />
 
                   <p className="pt-2 text-center text-xs text-muted-foreground">
                     Make your special day unforgettable.

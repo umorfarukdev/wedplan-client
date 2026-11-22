@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { signUp } from "@/app/lib/auth-client";
 
 export default function RegisterPage() {
+  const router = useRouter();
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
@@ -48,7 +50,7 @@ export default function RegisterPage() {
 
       toast.success("Registration successful!");
 
-      redirect("/login");
+      router.push("/sign-in");
     } catch (error) {
       toast.error(error.message || "Registration failed.");
     }

@@ -14,8 +14,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { signIn } from "@/app/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -38,8 +40,7 @@ export default function LoginPage() {
       }
 
       toast.success("Login successful!");
-
-      // window.location.assign("/");
+      router.push("/dashboard");
     } catch (error) {
       toast.error(error.message || "Login failed.");
     }

@@ -36,8 +36,9 @@
     "**/*.mts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/dashboard/layout.jsx"  ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "ignoreDeprecations": "6.0"
 }

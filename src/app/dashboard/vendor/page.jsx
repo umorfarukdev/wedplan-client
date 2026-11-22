@@ -79,14 +79,14 @@ export default function VendorDashboard() {
                 Create and manage your wedding services.
               </p>
 
-              <Button asChild className="w-full">
+              <Button className="w-full">
                 <Link href="/dashboard/vendor/services">
                   <BriefcaseBusiness className="mr-2 h-4 w-4" />
                   Manage Services
                 </Link>
               </Button>
 
-              <Button variant="outline" asChild className="w-full">
+              <Button variant="outline" className="w-full">
                 <Link href="/dashboard/vendor/services/add">
                   <Plus className="mr-2 h-4 w-4" />
                   Add New Service
@@ -104,14 +104,14 @@ export default function VendorDashboard() {
                 Review and manage customer booking requests.
               </p>
 
-              <Button asChild className="w-full">
+              <Button className="w-full">
                 <Link href="/dashboard/vendor/bookings">
                   <CalendarDays className="mr-2 h-4 w-4" />
                   Manage Bookings
                 </Link>
               </Button>
 
-              <Button variant="outline" asChild className="w-full">
+              <Button variant="outline" className="w-full">
                 <Link href="/dashboard/vendor/subscription">
                   <CreditCard className="mr-2 h-4 w-4" />
                   My Subscription
@@ -132,7 +132,7 @@ export default function VendorDashboard() {
                 View and manage your subscription plan.
               </p>
             </div>
-            <Button variant="outline" asChild>
+            <Button variant="outline" >
               <Link href="/dashboard/vendor/subscription">
                 View Subscription
               </Link>
@@ -143,3 +143,4 @@ export default function VendorDashboard() {
     </div>
   );
 }
+

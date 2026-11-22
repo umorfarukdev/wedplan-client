@@ -75,14 +75,14 @@ export default function CustomerDashboard() {
             <CardTitle>Quick Actions</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-wrap gap-3">
-            <Button asChild>
+            <Button>
               <Link href="/services">
                 <Search className="mr-2 h-4 w-4" />
                 Explore Services
               </Link>
             </Button>
 
-            <Button variant="outline" asChild>
+            <Button variant="outline">
               <Link href="/dashboard/customer/bookings">
                 <ClipboardList className="mr-2 h-4 w-4" />
                 My Bookings
@@ -102,7 +102,7 @@ export default function CustomerDashboard() {
               <p className="mt-2 text-sm text-muted-foreground">
                 Explore wedding services and make your first booking.
               </p>
-              <Button className="mt-5" asChild>
+              <Button className="mt-5">
                 <Link href="/services">Explore Services</Link>
               </Button>
             </div>

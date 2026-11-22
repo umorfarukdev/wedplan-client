@@ -78,35 +78,35 @@ export default function AdminDashboard() {
           </CardHeader>
 
           <CardContent className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            <Button asChild className="justify-start">
+            <Button className="justify-start">
               <Link href="/dashboard/admin/users">
                 <Users className="mr-2 h-4 w-4" />
                 Manage Users
               </Link>
             </Button>
 
-            <Button variant="outline" asChild className="justify-start">
+            <Button variant="outline" className="justify-start">
               <Link href="/dashboard/admin/services">
                 <BriefcaseBusiness className="mr-2 h-4 w-4" />
                 Manage Services
               </Link>
             </Button>
 
-            <Button variant="outline" asChild className="justify-start">
+            <Button variant="outline" className="justify-start">
               <Link href="/dashboard/admin/bookings">
                 <CalendarDays className="mr-2 h-4 w-4" />
                 Manage Bookings
               </Link>
             </Button>
 
-            <Button variant="outline" asChild className="justify-start">
+            <Button variant="outline" className="justify-start">
               <Link href="/dashboard/admin/payments">
                 <CreditCard className="mr-2 h-4 w-4" />
                 Manage Payments
               </Link>
             </Button>
 
-            <Button variant="outline" asChild className="justify-start">
+            <Button variant="outline" className="justify-start">
               <Link href="/dashboard/admin/settings">
                 <Settings className="mr-2 h-4 w-4" />
                 Settings
