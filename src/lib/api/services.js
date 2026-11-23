@@ -14,3 +14,33 @@ export const getServiceById = async (id) => {
   }
   return response.json();
 };
+
+export const getFeaturedServices = async () => {
+  const res = await fetch(
+    `${BASE_URL}/services/featured`,
+    {
+      cache: "no-store",
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch featured services");
+  }
+
+  return res.json();
+};
+
+export const getServiceCategories = async () => {
+  const res = await fetch(
+    `${BASE_URL}/services/categories`,
+    {
+      cache: "no-store",
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch categories");
+  }
+
+  return res.json();
+};
