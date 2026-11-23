@@ -1,10 +1,7 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ArrowLeft,
-  CalendarDays,
-  CheckCircle2,
   MapPin,
   Tag,
 } from "lucide-react";
@@ -17,7 +14,6 @@ const ServiceDetailsPage = async ({ params }) => {
   const { serviceId } = await params;
 
   const service = await getServiceById(serviceId);
-  console.log(service);
 
   const {
     serviceName,
@@ -81,6 +77,7 @@ const ServiceDetailsPage = async ({ params }) => {
             {/* Service Information */}
             <div className="space-y-4">
               <div>
+                <h1 className="text-3xl font-bold">${price}</h1>
                 <p className="text-sm font-medium uppercase tracking-wider text-rose-600">
                   {category}
                 </p>

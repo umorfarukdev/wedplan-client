@@ -14,11 +14,8 @@ export const applyBooking = async (bookingData) => {
   return response.json();
 };
 
-export const getMyBookings = async (token) => {
-  const response = await fetch(`${BASE_URL}/my-bookings`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+export const getMyBookings = async (email) => {
+  const response = await fetch(`${BASE_URL}/my-bookings/${email}`, {
     cache: "no-store",
   });
 

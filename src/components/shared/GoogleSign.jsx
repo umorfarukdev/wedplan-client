@@ -3,16 +3,22 @@ import React from "react";
 import { Button } from "../ui/button";
 import { signIn } from "@/app/lib/auth-client";
 
-const GoogleSign = ({role}) => {
+const GoogleSign = ({ role }) => {
   const handleGoogleSignIn = async () => {
+    // Only pass a real role through; "?role=undefined" would otherwise be
+    // appended when the sign-in page uses this button without a role.
+    const callbackURL = role
+      ? `/auth/callback?role=${encodeURIComponent(role)}`
+      : "/auth/callback";
 
-    console.log("SELECTED ROLE:", role);
-    const { data, error } = await signIn.social({
+    const { error } = await signIn.social({
       provider: "google",
-      callbackURL: `/auth/callback?role=${role}`,
+      callbackURL,
     });
 
-    console.log("data: ", data, error);
+    if (error) {
+      console.error("Google sign-in failed:", error.message);
+    }
   };
   return (
     <Button onClick={handleGoogleSignIn} variant="outline" type="button" className="w-full">

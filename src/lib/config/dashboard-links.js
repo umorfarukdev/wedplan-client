@@ -62,7 +62,7 @@ export const dashboardLinks = {
 
         {
             title: "Booking Requests",
-            href: "/dashboard/vendor/booking-requests",
+            href: "/dashboard/vendor/booking-request",
             icon: CalendarDays,
         },
 

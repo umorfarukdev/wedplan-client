@@ -1,12 +1,13 @@
 
 import Sidebar from "@/components/dashboard/Sidebar";
-import { getSession } from "../lib/session";
+import { requireSession } from "../lib/session";
+import { normalizeRole } from "@/lib/roles";
 
 export default async function DashboardLayout({ children }) {
 
-    const session = await getSession();
+    const session = await requireSession();
 
-    const role = session.user.role;
+    const role = normalizeRole(session.user?.role);
 
     return (
 

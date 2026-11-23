@@ -6,10 +6,10 @@ import { useSession } from "@/app/lib/auth-client";
 
 const DASHBOARD_BY_ROLE = {
   admin: "/dashboard/admin",
-  vendor: "/dashboard/vendor",
-  vendors: "/dashboard/vendor",
-  customer: "/dashboard/customer",
-  customers: "/dashboard/customer",
+  vendor: "/dashboard/vendor/overview",
+  vendors: "/dashboard/vendor/overview",
+  customer: "/dashboard/customer/overview",
+  customers: "/dashboard/customer/overview",
 };
 
 export default function DashboardPage() {

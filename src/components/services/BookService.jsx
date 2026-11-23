@@ -1,9 +1,7 @@
-
 "use client";
 
 import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { useSession } from "@/app/lib/auth-client";
 import { toast } from "react-toastify";
 
 import { applyBooking } from "@/lib/actions/booking";
@@ -14,11 +12,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
 import { Loader2, CalendarDays, MapPin } from "lucide-react";
+import { useSession } from "@/app/lib/auth-client";
 
-const BookingPage = () => {
+const BookService = ({service}) => {
+    console.log(service);
   const { serviceId } = useParams();
   const router = useRouter();
   const { data: session } = useSession();
+  console.log(session?.user);
 
   const [eventDate, setEventDate] = useState("");
   const [eventLocation, setEventLocation] = useState("");
@@ -46,18 +47,24 @@ const BookingPage = () => {
     try {
       setLoading(true);
 
+      console.log(session?.user);
+
       const bookingData = {
         serviceId,
+        customerId: session?.user.id,
+        customerEmail: session?.user.email,
         eventDate,
         eventLocation: eventLocation.trim(),
         message: message?.trim(),
       };
 
-      await applyBooking(bookingData);
+      const result = await applyBooking(bookingData);
+
+      console.log(result);
 
       toast.success("Booking request submitted successfully!");
 
-      router.push("/dashboard/customer/bookings");
+      router.push("/dashboard/customer/my-bookings");
     } catch (error) {
       toast.error(error.message || "Booking failed.");
     } finally {
@@ -68,11 +75,8 @@ const BookingPage = () => {
   return (
     <main className="min-h-screen bg-muted/30 px-4 py-12">
       <div className="mx-auto max-w-2xl rounded-2xl border bg-card p-6 shadow-sm sm:p-8">
-
         <div className="mb-8">
-          <h1 className="text-2xl font-bold">
-            Book Wedding Service
-          </h1>
+          <h1 className="text-2xl font-bold">Book Wedding Service</h1>
 
           <p className="mt-2 text-sm text-muted-foreground">
             Provide your event information to send a booking request.
@@ -80,11 +84,8 @@ const BookingPage = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-
           <div className="space-y-2">
-            <Label htmlFor="eventDate">
-              Event Date *
-            </Label>
+            <Label htmlFor="eventDate">Event Date *</Label>
 
             <div className="relative">
               <CalendarDays className="absolute left-3 top-3 size-4 text-muted-foreground" />
@@ -102,9 +103,7 @@ const BookingPage = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="eventLocation">
-              Event Location *
-            </Label>
+            <Label htmlFor="eventLocation">Event Location *</Label>
 
             <div className="relative">
               <MapPin className="absolute left-3 top-3 size-4 text-muted-foreground" />
@@ -121,9 +120,7 @@ const BookingPage = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="message">
-              Additional Message
-            </Label>
+            <Label htmlFor="message">Additional Message</Label>
 
             <Textarea
               id="message"
@@ -148,11 +145,10 @@ const BookingPage = () => {
               "Submit Booking Request"
             )}
           </Button>
-
         </form>
       </div>
     </main>
   );
 };
 
-export default BookingPage;
+export default BookService;

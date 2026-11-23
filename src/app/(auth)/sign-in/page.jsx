@@ -18,8 +18,6 @@ import { useRouter } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import GoogleSign from "@/components/shared/GoogleSign";
 
-const role = "customer" || "vendor" | "admin";
-
 export default function LoginPage() {
   const router = useRouter();
   const handleLogin = async (e) => {
@@ -44,7 +42,8 @@ export default function LoginPage() {
       }
 
       toast.success("Login successful!");
-      router.push(`/dashboard/${role}/overview`);
+      // /dashboard resolves the correct role-based home from the session.
+      router.push("/dashboard");
     } catch (error) {
       toast.error(error.message || "Login failed.");
     }

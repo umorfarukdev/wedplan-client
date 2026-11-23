@@ -1,7 +1,7 @@
 export const ROLE_HOME = {
   admin: "/dashboard/admin",
-  vendor: "/dashboard/vendor",
-  customer: "/dashboard/customer",
+  vendor: "/dashboard/vendor/overview",
+  customer: "/dashboard/customer/overview",
 };
 
 export const ROLE_LABEL = {

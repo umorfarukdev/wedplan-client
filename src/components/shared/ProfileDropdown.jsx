@@ -53,7 +53,7 @@ export default function ProfileDropdown({ closeMenu }) {
     customer: "/dashboard/customer/overview",
   };
   const role = user.role || "customer";
-  const userDashboard = dashboardPath[role] || "/dashboard/customer";
+  const userDashboard = dashboardPath[role] || "/dashboard/customer/overview";
 
   const handleLogout = async () => {
     try {
