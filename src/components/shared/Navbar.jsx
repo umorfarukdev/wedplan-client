@@ -6,12 +6,9 @@ import {
   Heart,
   Menu,
   X,
-  ArrowRight,
+
   Home,
   BriefcaseBusiness,
-  Store,
-  Package,
-  Info,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";

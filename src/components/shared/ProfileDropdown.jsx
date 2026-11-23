@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LayoutDashboard, Settings, LogOut, ArrowRight } from "lucide-react";
 
 import { signOut, useSession } from "@/app/lib/auth-client";
+
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
 
@@ -22,12 +24,10 @@ export default function ProfileDropdown({ closeMenu }) {
 
   const user = session?.user;
 
-  // Only show loader while session is loading
   if (isPending) {
     return <Spinner />;
   }
 
-  // User is not logged in
   if (!user) {
     return (
       <div className="flex gap-2">
@@ -47,17 +47,29 @@ export default function ProfileDropdown({ closeMenu }) {
     );
   }
 
+  const role = user.role || "customer";
+
   const dashboardPath = {
-    admin: "/dashboard/admin",
+    admin: "/dashboard/admin/overview",
     vendor: "/dashboard/vendor/overview",
     customer: "/dashboard/customer/overview",
   };
-  const role = user.role || "customer";
+
+  const profilePath = {
+    admin: "/dashboard/admin/settings/profile",
+    vendor: "/dashboard/vendor/settings/profile",
+    customer: "/dashboard/customer/settings/profile",
+  };
+
   const userDashboard = dashboardPath[role] || "/dashboard/customer/overview";
+
+  const userProfile =
+    profilePath[role] || "/dashboard/customer/settings/profile";
 
   const handleLogout = async () => {
     try {
       await signOut();
+
       closeMenu?.();
     } catch (error) {
       console.error("Logout failed:", error);
@@ -71,6 +83,7 @@ export default function ProfileDropdown({ closeMenu }) {
           {user.image && (
             <AvatarImage src={user.image} alt={user.name || "User"} />
           )}
+
           <AvatarFallback>
             {user.name?.charAt(0)?.toUpperCase() || "U"}
           </AvatarFallback>
@@ -78,6 +91,7 @@ export default function ProfileDropdown({ closeMenu }) {
 
         <div className="hidden text-left md:block">
           <h4 className="text-sm font-semibold">{user.name}</h4>
+
           <p className="text-xs text-muted-foreground capitalize">{role}</p>
         </div>
       </DropdownMenuTrigger>
@@ -91,6 +105,7 @@ export default function ProfileDropdown({ closeMenu }) {
             {user.image && (
               <AvatarImage src={user.image} alt={user.name || "User"} />
             )}
+
             <AvatarFallback>
               {user.name?.charAt(0)?.toUpperCase() || "U"}
             </AvatarFallback>
@@ -98,6 +113,7 @@ export default function ProfileDropdown({ closeMenu }) {
 
           <div className="min-w-0">
             <h3 className="font-semibold">{user.name}</h3>
+
             <p className="truncate text-sm text-muted-foreground">
               {user.email}
             </p>
@@ -119,7 +135,7 @@ export default function ProfileDropdown({ closeMenu }) {
         </DropdownMenuItem>
 
         <DropdownMenuItem
-          render={<Link href="/profile" />}
+          render={<Link href={userProfile} />}
           className="flex cursor-pointer items-center gap-3 py-3"
         >
           <Settings className="h-5 w-5 text-rose-500" />

@@ -10,7 +10,9 @@ import {
     User,
 } from "lucide-react";
 
+
 export const dashboardLinks = {
+
 
     admin: [
 
@@ -38,7 +40,15 @@ export const dashboardLinks = {
             icon: CreditCard,
         },
 
+        {
+            title: "Profile Settings",
+            href: "/dashboard/admin/settings/profile",
+            icon: User,
+        },
+
     ],
+
+
 
     vendor: [
 
@@ -73,12 +83,15 @@ export const dashboardLinks = {
         },
 
         {
-            title: "Profile",
-            href: "/dashboard/vendor/profile",
+            title: "Profile Settings",
+            href: "/dashboard/vendor/settings/profile",
             icon: User,
         },
 
     ],
+
+
+
 
     customer: [
 
@@ -95,8 +108,8 @@ export const dashboardLinks = {
         },
 
         {
-            title: "Profile",
-            href: "/dashboard/customer/profile",
+            title: "Profile Settings",
+            href: "/dashboard/customer/settings/profile",
             icon: User,
         },
 
