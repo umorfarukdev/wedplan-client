@@ -11,7 +11,7 @@ export default async function DashboardLayout({ children }) {
 
     return (
 
-        <div className="flex">
+        <div className="flex container mx-auto">
 
             <Sidebar role={role} />
 

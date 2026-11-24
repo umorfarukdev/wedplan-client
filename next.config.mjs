@@ -1,10 +1,12 @@
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
   experimental: {
     agentFeedback: true,
   },
+
   reactCompiler: true,
+
   turbopack: {
     rules: {
       "*.css": {
@@ -13,11 +15,16 @@ const nextConfig = {
       },
     },
   },
+
   images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "i.ibb.co",
       },
     ],
   },

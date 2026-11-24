@@ -51,6 +51,7 @@ const BookService = ({service}) => {
 
       const bookingData = {
         serviceId,
+        vendorId: service?.vendorId,
         customerId: session?.user.id,
         customerEmail: session?.user.email,
         eventDate,

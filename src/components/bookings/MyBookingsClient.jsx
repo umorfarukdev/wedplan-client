@@ -13,6 +13,15 @@ import {
   ClipboardList,
 } from "lucide-react";
 
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableHead,
+  TableRow,
+  TableCell,
+} from "@/components/ui/table";
+
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -79,6 +88,7 @@ const MyBookingsClient = ({ bookings = [] }) => {
           </Badge>
         </div>
 
+        {/* Bookings Table */}
         {bookings.length === 0 ? (
           <Card className="border-dashed">
             <CardContent className="py-16 text-center">
@@ -86,84 +96,130 @@ const MyBookingsClient = ({ bookings = [] }) => {
 
               <h2 className="mt-4 text-xl font-semibold">No bookings yet</h2>
 
-              <Button asChild className="mt-5 bg-rose-600">
-                <Link href="/services">Explore Services</Link>
-              </Button>
+              <p className="mt-2 text-sm text-muted-foreground">
+                You have not submitted any booking requests.
+              </p>
+
+              <Link
+                href="/services"
+                className="inline-flex mt-5 items-center justify-center rounded-md bg-rose-600 px-4 py-2 text-sm font-medium text-white hover:bg-rose-700"
+              >
+                Explore Services
+              </Link>
             </CardContent>
           </Card>
         ) : (
-          <div className="space-y-5">
-            {bookings.map((booking) => (
-              <Card key={booking._id} className="rounded-2xl overflow-hidden">
-                <CardContent className="p-5">
-                  <div className="flex gap-5">
-                    <div className="relative h-40 w-40">
-                      <Image
-                        src={booking.image || "/placeholder.jpg"}
-                        alt="service"
-                        fill
-                        unoptimized
-                        className="object-cover rounded-xl"
-                      />
-                    </div>
+          <Card className="overflow-hidden rounded-xl">
+            <CardContent className="p-0">
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-muted/60">
+                      <TableHead>Service</TableHead>
+                      <TableHead>Vendor</TableHead>
+                      <TableHead>Event Date</TableHead>
+                      <TableHead>Location</TableHead>
+                      <TableHead>Requested</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead className="text-center">Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
 
-                    <div className="flex-1">
-                      <div className="flex justify-between">
-                        <h2 className="font-bold text-xl">
-                          {booking.serviceName || "Wedding Service"}
-                        </h2>
+                  <TableBody>
+                    {bookings.map((booking) => (
+                      <TableRow key={booking._id}>
+                        {/* Service */}
+                        <TableCell>
+                          <div className="flex items-center gap-3 min-w-[180px]">
+                            <div className="relative size-12 shrink-0 overflow-hidden rounded-lg bg-muted">
+                              <Image
+                                src={booking.image || "/placeholder.jpg"}
+                                alt={booking.serviceName || "Wedding service"}
+                                fill
+                                unoptimized
+                                className="object-cover"
+                              />
+                            </div>
 
-                        <Badge className={getStatusStyle(booking.status)}>
-                          {booking.status}
-                        </Badge>
-                      </div>
+                            <div>
+                              <p className="font-semibold">
+                                {booking.serviceName || "Wedding Service"}
+                              </p>
 
-                      <p className="text-sm mt-2">
-                        Vendor: {booking.vendorName || "Vendor"}
-                      </p>
+                              <p className="text-xs text-muted-foreground">
+                                ID: {booking._id.slice(-8)}
+                              </p>
+                            </div>
+                          </div>
+                        </TableCell>
 
-                      <div className="mt-4 space-y-2 text-sm">
-                        <p className="flex gap-2">
-                          <CalendarDays size={16} />
-                          Event: {formatDate(booking.eventDate)}
-                        </p>
+                        {/* Vendor */}
+                        <TableCell>{booking.vendorName || "Vendor"}</TableCell>
 
-                        <p className="flex gap-2">
-                          <MapPin size={16} />
-                          {booking.eventLocation}
-                        </p>
+                        {/* Event Date */}
+                        <TableCell>
+                          <div className="flex items-center gap-2 whitespace-nowrap">
+                            <CalendarDays className="size-4 text-muted-foreground" />
+                            {formatDate(booking.eventDate)}
+                          </div>
+                        </TableCell>
 
-                        <p className="flex gap-2">
-                          <Clock size={16} />
-                          Requested: {formatDate(booking.createdAt)}
-                        </p>
-                      </div>
+                        {/* Location */}
+                        <TableCell>
+                          <div className="flex items-center gap-2">
+                            <MapPin className="size-4 text-muted-foreground" />
+                            {booking.eventLocation || "Not specified"}
+                          </div>
+                        </TableCell>
 
-                      <div className="mt-5 border-t pt-4 flex gap-3">
-                        <Button asChild variant="outline" size="sm">
-                          <Link href={`/services/${booking.serviceId}`}>
-                            <Eye size={16} />
-                            Details
-                          </Link>
-                        </Button>
+                        {/* Requested */}
+                        <TableCell>
+                          <div className="flex items-center gap-2 whitespace-nowrap">
+                            <Clock className="size-4 text-muted-foreground" />
+                            {formatDate(booking.createdAt)}
+                          </div>
+                        </TableCell>
 
-                        {booking.status === "pending" && (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="text-red-600"
+                        {/* Status */}
+                        <TableCell>
+                          <Badge
+                            className={`${getStatusStyle(booking.status)} capitalize`}
                           >
-                            <XCircle size={16} />
-                            Cancel
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                            {booking.status}
+                          </Badge>
+                        </TableCell>
+
+                        {/* Actions */}
+                        <TableCell>
+                          <div className="flex items-center justify-center gap-2">
+                            <Link
+                              href={`/services/${booking.serviceId}`}
+                              className="inline-flex items-center gap-1 rounded-md border px-3 py-2 text-xs font-medium hover:bg-muted transition-colors"
+                            >
+                              <Eye className="size-4" />
+                              Details
+                            </Link>
+
+                            {booking.status === "pending" && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="text-red-600 hover:bg-red-50 hover:text-red-700"
+                                type="button"
+                              >
+                                <XCircle className="size-4" />
+                                Cancel
+                              </Button>
+                            )}
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
         )}
       </div>
     </main>
