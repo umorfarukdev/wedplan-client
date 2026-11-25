@@ -25,8 +25,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { cancelBooking } from "@/lib/actions/customer";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const MyBookingsClient = ({ bookings = [] }) => {
+  const router = useRouter();
   const formatDate = (date) => {
     if (!date) return "Not specified";
 
@@ -54,6 +58,22 @@ const MyBookingsClient = ({ bookings = [] }) => {
     };
 
     return styles[status] || "bg-gray-100 text-gray-600";
+  };
+
+  const handleDeletePendingBooking = async (id) => {
+    try {
+      await cancelBooking(id);
+      toast.success("Booking deleted successfully");
+      router.refresh(); // Refresh the page to reflect the changes
+
+      // If you're using state:
+      // setBookings((prev) => prev.filter((booking) => booking._id !== id));
+
+      // Or refresh the page/data:
+      // router.refresh();
+    } catch (error) {
+      toast.error(error.message || "Failed to delete booking");
+    }
   };
 
   return (
@@ -202,6 +222,9 @@ const MyBookingsClient = ({ bookings = [] }) => {
 
                             {booking.status === "pending" && (
                               <Button
+                                onClick={() =>
+                                  handleDeletePendingBooking(booking._id)
+                                }
                                 size="sm"
                                 variant="outline"
                                 className="text-red-600 hover:bg-red-50 hover:text-red-700"
