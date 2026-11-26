@@ -20,16 +20,16 @@ import { Button } from "../ui/button";
 
 const quickLinks = [
   { name: "Home", href: "/" },
-  { name: "Browse Services", href: "/browse-services" },
+  { name: "Browse Services", href: "/services" },
   { name: "About Us", href: "/about" },
   { name: "Contact Us", href: "/contact" },
 ];
 
 const serviceLinks = [
-  { name: "Photography", href: "/browse-services?category=Photography" },
-  { name: "Decoration", href: "/browse-services?category=Decoration" },
-  { name: "Catering", href: "/browse-services?category=Catering" },
-  { name: "Makeup Artist", href: "/browse-services?category=Makeup" },
+  { name: "Photography", href: "/services?category=Photography" },
+  { name: "Decoration", href: "/services?category=Decoration" },
+  { name: "Catering", href: "/services?category=Catering" },
+  { name: "Makeup Artist", href: "/services?category=Makeup" },
 ];
 
 const socialLinks = [

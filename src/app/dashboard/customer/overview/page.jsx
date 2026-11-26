@@ -89,7 +89,7 @@ export default async function CustomerPage() {
 
   // 2. Authentication check
   if (!session?.user) {
-    redirect("/login");
+    redirect("/sign-in");
   }
 
   const email = session.user.email;
@@ -183,14 +183,14 @@ export default async function CustomerPage() {
 
             <div className="flex gap-2">
               <Link
-                href="/customer/bookings"
+                href="/dashboard/customer/my-bookings"
                 className="rounded-lg border px-4 py-2 text-sm transition hover:bg-muted"
               >
                 Manage All
               </Link>
 
               <Link
-                href="/browse-services"
+                href="/services"
                 className="flex items-center gap-2 rounded-lg bg-rose-700 px-4 py-2 text-sm text-white transition hover:bg-rose-800"
               >
                 <Search className="h-4 w-4" />
@@ -217,7 +217,7 @@ export default async function CustomerPage() {
                 </p>
 
                 <Link
-                  href="/browse-services"
+                  href="/services"
                   className="mt-5 rounded-lg bg-rose-700 px-5 py-2 text-sm text-white hover:bg-rose-800"
                 >
                   Explore Services

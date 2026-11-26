@@ -185,7 +185,7 @@ const BookingRequestsClient = ({ initialBookings, error }) => {
 
                 <Button
                   className="mt-5 bg-rose-600 text-white hover:bg-rose-700"
-                  onClick={() => router.push("/dashboard/vendor/services")}
+                  onClick={() => router.push("/dashboard/vendor/overview/my-services")}
                 >
                   Manage My Services
                   <ArrowRight className="ml-2 size-4" />

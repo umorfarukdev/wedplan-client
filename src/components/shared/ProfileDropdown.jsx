@@ -51,13 +51,13 @@ export default function ProfileDropdown({ closeMenu }) {
 
   const dashboardPath = {
     admin: "/dashboard/admin/overview",
-    vendor: "/dashboard/vendor/overview",
+    vendor: "/dashboard/vendor/overview/overview",
     customer: "/dashboard/customer/overview",
   };
 
   const profilePath = {
     admin: "/dashboard/admin/settings/profile",
-    vendor: "/dashboard/vendor/settings/profile",
+    vendor: "/dashboard/vendor/overview/settings/profile",
     customer: "/dashboard/customer/settings/profile",
   };
 

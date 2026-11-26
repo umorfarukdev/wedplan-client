@@ -54,37 +54,37 @@ export const dashboardLinks = {
 
         {
             title: "Overview",
-            href: "/dashboard/vendor/overview",
+            href: "/dashboard/vendor/overview/overview",
             icon: LayoutDashboard,
         },
 
         {
             title: "My Services",
-            href: "/dashboard/vendor/my-services",
+            href: "/dashboard/vendor/overview/my-services",
             icon: ShoppingBag,
         },
 
         {
             title: "Add Service",
-            href: "/dashboard/vendor/add-service",
+            href: "/dashboard/vendor/overview/add-service",
             icon: PlusCircle,
         },
 
         {
             title: "Booking Requests",
-            href: "/dashboard/vendor/booking-request",
+            href: "/dashboard/vendor/overview/booking-request",
             icon: CalendarDays,
         },
 
         {
             title: "Subscription",
-            href: "/dashboard/vendor/subscription",
+            href: "/dashboard/vendor/overview/subscription",
             icon: Crown,
         },
 
         {
             title: "Profile Settings",
-            href: "/dashboard/vendor/settings/profile",
+            href: "/dashboard/vendor/overview/settings/profile",
             icon: User,
         },
 

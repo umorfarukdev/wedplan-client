@@ -178,7 +178,18 @@ const AddServicePage = () => {
 
       router.refresh();
     } catch (error) {
-      console.error(error);
+      console.error("Create Service Error:", error);
+
+      if (error.upgradeRequired) {
+        toast.error(error.message);
+
+        setTimeout(() => {
+          router.push("/checkout?plan=premium");
+        }, 1000);
+
+        return;
+      }
+
       toast.error(error.message || "Something went wrong.");
     } finally {
       setLoading(false);
@@ -191,7 +202,7 @@ const AddServicePage = () => {
         {/* Header */}
         <div className="space-y-3">
           <Link
-            href="/dashboard/vendor/services"
+            href="/dashboard/vendor/overview/my-services"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-rose-600"
           >
             <ArrowLeft className="size-4" />

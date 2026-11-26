@@ -37,7 +37,7 @@ export default async function VendorDashboard() {
             </p>
 
             <Link
-              href="/login"
+              href="/sign-in"
               className="mt-5 inline-flex rounded-md bg-primary px-5 py-2 text-sm font-medium text-primary-foreground"
             >
               Login
@@ -168,7 +168,7 @@ export default async function VendorDashboard() {
 
             <div className="flex flex-wrap gap-3">
               <Link
-                href="/dashboard/vendor/add-service"
+                href="/dashboard/vendor/overview/add-service"
                 className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
               >
                 <Plus className="mr-2 h-4 w-4" />
@@ -176,7 +176,7 @@ export default async function VendorDashboard() {
               </Link>
 
               <Link
-                href="/dashboard/vendor/subscription"
+                href="/dashboard/vendor/overview/subscription"
                 className="inline-flex items-center justify-center rounded-md border bg-background px-4 py-2 text-sm font-medium hover:bg-accent"
               >
                 <Crown className="mr-2 h-4 w-4" />

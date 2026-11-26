@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import { auth } from "@/app/lib/auth";
 import { BASE_URL } from "../api/base-url";
 
-const SERVICES_PATH = "/dashboard/vendor/my-services";
+const SERVICES_PATH = "/dashboard/vendor/overview/my-services";
 
 // Get authenticated vendor
 async function getVendorId() {

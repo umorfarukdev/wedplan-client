@@ -12,7 +12,11 @@ export const createService = async (serviceData) => {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.message || "Failed to create service");
+    const error = new Error(data.message);
+
+    error.upgradeRequired = data.upgradeRequired;
+
+    throw error;
   }
 
   return data;

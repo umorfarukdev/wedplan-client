@@ -6,8 +6,8 @@ import { useSession } from "@/app/lib/auth-client";
 
 const DASHBOARD_BY_ROLE = {
   admin: "/dashboard/admin",
-  vendor: "/dashboard/vendor/overview",
-  vendors: "/dashboard/vendor/overview",
+  vendor: "/dashboard/vendor/overview/overview",
+  vendors: "/dashboard/vendor/overview/overview",
   customer: "/dashboard/customer/overview",
   customers: "/dashboard/customer/overview",
 };

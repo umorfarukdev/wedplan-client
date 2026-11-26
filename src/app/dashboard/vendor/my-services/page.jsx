@@ -84,7 +84,7 @@ const MyServicesPage = async () => {
         </div>
 
         <Link
-          href="/dashboard/vendor/add-service"
+          href="/dashboard/vendor/overview/add-service"
           className="inline-flex h-8 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition hover:bg-primary/80"
         >
           <Plus className="mr-2 h-4 w-4" />
@@ -123,7 +123,7 @@ const MyServicesPage = async () => {
               You have not created any services yet.
             </p>
             <Link
-              href="/dashboard/vendor/services/add"
+              href="/dashboard/vendor/overview/my-services/add"
               className="mt-5 inline-flex h-8 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition hover:bg-primary/80"
             >
               <Plus className="mr-2 h-4 w-4" />
@@ -240,7 +240,7 @@ const MyServicesPage = async () => {
                     <td className="px-5 py-4">
                       <div className="flex items-center justify-end gap-2">
                         <Link
-                          href={`/dashboard/vendor/services/${service._id}`}
+                          href={`/dashboard/vendor/overview/my-services/${service._id}`}
                           aria-label="View service"
                           className="inline-flex size-8 items-center justify-center rounded-lg border border-border bg-background transition hover:bg-muted"
                         >
@@ -248,7 +248,7 @@ const MyServicesPage = async () => {
                         </Link>
 
                         <Link
-                          href={`/dashboard/vendor/services/edit/${service._id}`}
+                          href={`/dashboard/vendor/overview/my-services/edit/${service._id}`}
                           aria-label="Edit service"
                           className="inline-flex size-8 items-center justify-center rounded-lg border border-border bg-background transition hover:bg-muted"
                         >
