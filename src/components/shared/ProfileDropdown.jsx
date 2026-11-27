@@ -19,8 +19,11 @@ import { normalizeRole } from "@/lib/roles";
 
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function ProfileDropdown({ closeMenu }) {
+  const router = useRouter();
   const { data: session, isPending } = useSession();
 
   const user = session?.user;
@@ -71,6 +74,9 @@ export default function ProfileDropdown({ closeMenu }) {
     try {
       await signOut();
 
+      toast.success("Logged out successfully");
+
+      router.push("/");
       closeMenu?.();
     } catch (error) {
       console.error("Logout failed:", error);
