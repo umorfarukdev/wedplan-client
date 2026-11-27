@@ -33,10 +33,7 @@ export async function fetchAdminServices(params = {}) {
 export async function updateServiceStatus(id, status) {
   const response = await fetch(`${BASE_URL}/admin/services/${id}/status`, {
     method: "PATCH",
-    headers: await getAuthHeaders({
-      "Content-Type": "application/json",
-      // authorization: `Bearer ${await getTokenClient()}`,
-    }),
+    headers: await getAuthHeaders(),
     body: JSON.stringify({
       status,
     }),
@@ -57,7 +54,6 @@ export async function toggleServiceActive(id, isActive) {
     method: "PATCH",
     headers: await getAuthHeaders({
       "Content-Type": "application/json",
-      // authorization: `Bearer ${await getTokenClient()}`,
     }),
     body: JSON.stringify({
       isActive,
@@ -77,9 +73,7 @@ export async function toggleServiceActive(id, isActive) {
 export async function deleteService(id) {
   const response = await fetch(`${BASE_URL}/admin/services/${id}`, {
     method: "DELETE",
-    headers: await getAuthHeaders({
-      // authorization: `Bearer ${await getTokenClient()}`,
-    }),
+    headers: await getAuthHeaders(),
   });
 
   const data = await response.json();

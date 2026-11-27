@@ -13,9 +13,7 @@ function normalizeUser(user) {
 
 export async function getAllUsers({ searchValue = "", role = "all" } = {}) {
   const response = await fetch(`${BASE_URL}/admin/users`, {
-    headers: await getAuthHeaders({
-      // authorization: `Bearer ${await getTokenClient()}`,
-    }),
+    headers: await getAuthHeaders(),
     cache: "no-store",
   });
 
@@ -48,9 +46,7 @@ export async function getAllUsers({ searchValue = "", role = "all" } = {}) {
 export async function blockUser(userId) {
   const response = await fetch(`${BASE_URL}/admin/users/${userId}/block`, {
     method: "PATCH",
-    headers: await getAuthHeaders({
-      // authorization: `Bearer ${await getTokenClient()}`,
-    }),
+    headers: await getAuthHeaders(),
   });
 
   const data = await response.json();
@@ -66,9 +62,7 @@ export async function blockUser(userId) {
 export async function unblockUser(userId) {
   const response = await fetch(`${BASE_URL}/admin/users/${userId}/unblock`, {
     method: "PATCH",
-    headers: await getAuthHeaders({
-      // authorization: `Bearer ${await getTokenClient()}`,
-    }),
+    headers: await getAuthHeaders(),
   });
 
   const data = await response.json();

@@ -4,9 +4,7 @@ import { getAuthHeaders } from "@/lib/server/auth-headers";
 
 export const getAdminOverview = async () => {
   const res = await fetch(`${BASE_URL}/admin/dashboard`, {
-    headers: await getAuthHeaders({
-      // authorization: `Bearer ${await getTokenServer()}`,
-    }),
+    headers: await getAuthHeaders(),
     cache: "no-store",
   });
 
