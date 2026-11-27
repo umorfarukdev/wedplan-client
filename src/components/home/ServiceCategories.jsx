@@ -5,6 +5,7 @@ import ServiceCategoriesClient from "./ServiceCategoriesClient";
 const ServiceCategories = async () => {
 
   const categories = await getServiceCategories();
+  console.log(categories);
 
 
   return (

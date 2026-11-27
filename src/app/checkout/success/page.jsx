@@ -1,12 +1,22 @@
 import { stripe } from "@/app/lib/stripe";
 import { redirect } from "next/navigation";
 import { CheckCircle, Mail } from "lucide-react";
+import { checkoutVerify } from "@/lib/actions/payments";
 
 export default async function Success({ searchParams }) {
   const { session_id } = await searchParams;
 
   if (!session_id) {
     throw new Error("Missing Stripe session_id");
+  }
+
+  // Verify payment + save transaction
+  const verifyResult = await checkoutVerify(session_id);
+
+    if (!verifyResult.success) {
+    console.log("Payment Verify Failed:", verifyResult);
+
+    return redirect("/checkout?plan=premium");
   }
 
   const session = await stripe.checkout.sessions.retrieve(session_id, {

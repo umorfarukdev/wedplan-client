@@ -60,13 +60,15 @@ export default function UsersClient({ initialUsers = [] }) {
 
   async function handleBlock(user) {
     try {
-      setLoading(user.id);
+      const userId = user._id || user.id;
 
-      await blockUser(user.id);
+      setLoading(userId);
+
+      await blockUser(userId);
 
       setUsers((prev) =>
         prev.map((item) =>
-          item.id === user.id
+          (item._id || item.id) === userId
             ? {
                 ...item,
                 banned: true,
@@ -87,13 +89,15 @@ export default function UsersClient({ initialUsers = [] }) {
 
   async function handleUnblock(user) {
     try {
-      setLoading(user.id);
+      const userId = user._id || user.id;
 
-      await unblockUser(user.id);
+      setLoading(userId);
+
+      await unblockUser(userId);
 
       setUsers((prev) =>
         prev.map((item) =>
-          item.id === user.id
+          (item._id || item.id) === userId
             ? {
                 ...item,
                 banned: false,
@@ -179,7 +183,7 @@ export default function UsersClient({ initialUsers = [] }) {
                       ) : (
                         <Badge className="bg-yellow-100 text-yellow-700">
                           <MailX className="mr-1 h-3" />
-                          Pending
+                          Unverified
                         </Badge>
                       )}
                     </TableCell>
@@ -215,7 +219,7 @@ export default function UsersClient({ initialUsers = [] }) {
                           <Button
                             size="icon"
                             variant="outline"
-                            disabled={loading === user._id}
+                            disabled={loading === (user._id || user.id)}
                             onClick={() => handleUnblock(user)}
                           >
                             <Unlock className="h-4 text-green-600" />
@@ -224,7 +228,7 @@ export default function UsersClient({ initialUsers = [] }) {
                           <Button
                             size="icon"
                             variant="outline"
-                            disabled={loading === user._id}
+                            disabled={loading === (user._id || user.id)}
                             onClick={() => handleBlock(user)}
                           >
                             <Ban className="h-4 text-red-600" />

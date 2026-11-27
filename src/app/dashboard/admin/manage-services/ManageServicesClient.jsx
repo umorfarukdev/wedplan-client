@@ -31,13 +31,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
-  getAdminServices,
-} from "@/lib/api/admin";
+  fetchAdminServices,
+  deleteService,
+  toggleServiceActive,
+  updateServiceStatus,
+} from "@/lib/actions/admin";
 import { useRouter } from "next/navigation";
-import { deleteService, toggleServiceActive, updateServiceStatus } from "@/lib/actions/admin";
 
 export default function ManageServicesClient({ initialServices }) {
-
   const router = useRouter();
   const [services, setServices] = useState(initialServices || []);
 
@@ -55,7 +56,7 @@ export default function ManageServicesClient({ initialServices }) {
     try {
       setLoading(true);
 
-      const data = await getAdminServices({
+      const data = await fetchAdminServices({
         search,
         status,
         category,
@@ -76,7 +77,7 @@ export default function ManageServicesClient({ initialServices }) {
       try {
         setLoading(true);
 
-        const data = await getAdminServices({
+        const data = await fetchAdminServices({
           search,
           status,
           category,
@@ -301,8 +302,9 @@ export default function ManageServicesClient({ initialServices }) {
 
                       <TableCell>
                         <div className="flex items-center justify-center gap-2">
-                          {/* Approve */}
-                          {service.status === "pending" && (
+                          {/* Pending / Rejected => Approve */}
+                          {(service.status === "pending" ||
+                            service.status === "rejected") && (
                             <Button
                               size="icon"
                               variant="ghost"
@@ -316,13 +318,11 @@ export default function ManageServicesClient({ initialServices }) {
                             </Button>
                           )}
 
-                          {/* Reject */}
-                          {service.status === "pending" && (
+                          {service.status === "approved" && (
                             <Button
                               size="icon"
                               variant="ghost"
                               title="Reject Service"
-                              disabled={actionId === service._id}
                               onClick={() =>
                                 changeStatus(service._id, "rejected")
                               }
@@ -331,7 +331,22 @@ export default function ManageServicesClient({ initialServices }) {
                             </Button>
                           )}
 
-                          {/* Deactivate */}
+                          {/* Rejected => Approve Again */}
+                          {service.status === "rejected" && (
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              title="Restore & Approve Service"
+                              disabled={actionId === service._id}
+                              onClick={() =>
+                                changeStatus(service._id, "approved")
+                              }
+                            >
+                              <CheckCircle className="h-4 w-4 text-green-600" />
+                            </Button>
+                          )}
+
+                          {/* Approved => Deactivate */}
                           {service.status === "approved" &&
                             service.isActive && (
                               <Button
@@ -345,7 +360,7 @@ export default function ManageServicesClient({ initialServices }) {
                               </Button>
                             )}
 
-                          {/* Activate */}
+                          {/* Approved => Activate */}
                           {service.status === "approved" &&
                             !service.isActive && (
                               <Button

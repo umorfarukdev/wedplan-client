@@ -1,11 +1,5 @@
-import React from 'react';
+import { redirect } from "next/navigation";
 
-const BookingsPage = () => {
-    return (
-        <div>
-            
-        </div>
-    );
-};
-
-export default BookingsPage;
+export default function BookingsPage() {
+  redirect("/dashboard/vendor/booking-request");
+}

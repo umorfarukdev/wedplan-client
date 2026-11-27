@@ -15,6 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LayoutDashboard, Settings, LogOut, ArrowRight } from "lucide-react";
 
 import { signOut, useSession } from "@/app/lib/auth-client";
+import { normalizeRole } from "@/lib/roles";
 
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
@@ -47,17 +48,17 @@ export default function ProfileDropdown({ closeMenu }) {
     );
   }
 
-  const role = user.role || "customer";
+  const role = normalizeRole(user.role);
 
   const dashboardPath = {
     admin: "/dashboard/admin/overview",
-    vendor: "/dashboard/vendor/overview/overview",
+    vendor: "/dashboard/vendor/overview",
     customer: "/dashboard/customer/overview",
   };
 
   const profilePath = {
     admin: "/dashboard/admin/settings/profile",
-    vendor: "/dashboard/vendor/overview/settings/profile",
+    vendor: "/dashboard/vendor/settings/profile",
     customer: "/dashboard/customer/settings/profile",
   };
 

@@ -5,7 +5,7 @@ import { Eye, Pencil, Trash2, Plus, MapPin, CalendarDays } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { BASE_URL } from "@/lib/api/base-url";
+import { getServiceByVendorId } from "@/lib/api/vendor";
 import { auth } from "@/app/lib/auth";
 import {
   deleteVendorService,
@@ -51,15 +51,7 @@ const MyServicesPage = async () => {
   }
 
   // Fetch vendor services
-  const response = await fetch(`${BASE_URL}/vendor/services/${user.id}`, {
-    cache: "no-store",
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch services");
-  }
-
-  const services = await response.json();
+  const services = await getServiceByVendorId(user.id);
 
   const totalServices = services.length;
   const approvedServices = services.filter(
@@ -84,7 +76,7 @@ const MyServicesPage = async () => {
         </div>
 
         <Link
-          href="/dashboard/vendor/overview/add-service"
+          href="/dashboard/vendor/add-service"
           className="inline-flex h-8 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition hover:bg-primary/80"
         >
           <Plus className="mr-2 h-4 w-4" />
@@ -123,7 +115,7 @@ const MyServicesPage = async () => {
               You have not created any services yet.
             </p>
             <Link
-              href="/dashboard/vendor/overview/my-services/add"
+              href="/dashboard/vendor/add-service"
               className="mt-5 inline-flex h-8 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition hover:bg-primary/80"
             >
               <Plus className="mr-2 h-4 w-4" />
@@ -240,7 +232,7 @@ const MyServicesPage = async () => {
                     <td className="px-5 py-4">
                       <div className="flex items-center justify-end gap-2">
                         <Link
-                          href={`/dashboard/vendor/overview/my-services/${service._id}`}
+                          href={`/services/${service._id}`}
                           aria-label="View service"
                           className="inline-flex size-8 items-center justify-center rounded-lg border border-border bg-background transition hover:bg-muted"
                         >
@@ -248,7 +240,7 @@ const MyServicesPage = async () => {
                         </Link>
 
                         <Link
-                          href={`/dashboard/vendor/overview/my-services/edit/${service._id}`}
+                          href={`/dashboard/vendor/my-services/edit/${service._id}`}
                           aria-label="Edit service"
                           className="inline-flex size-8 items-center justify-center rounded-lg border border-border bg-background transition hover:bg-muted"
                         >

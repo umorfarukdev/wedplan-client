@@ -33,7 +33,7 @@ const BookingRequestsClient = ({ initialBookings, error }) => {
     try {
       setUpdatingId(id);
 
-      await updateBookingStatus(id, status, initialBookings[0]?.vendorId);
+      await updateBookingStatus(id, status);
 
       setBookings((previous) =>
         previous.map((booking) =>
@@ -185,7 +185,7 @@ const BookingRequestsClient = ({ initialBookings, error }) => {
 
                 <Button
                   className="mt-5 bg-rose-600 text-white hover:bg-rose-700"
-                  onClick={() => router.push("/dashboard/vendor/overview/my-services")}
+                  onClick={() => router.push("/dashboard/vendor/my-services")}
                 >
                   Manage My Services
                   <ArrowRight className="ml-2 size-4" />

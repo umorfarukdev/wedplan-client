@@ -17,7 +17,6 @@ const ServiceCard = ({ service }) => {
     images = [],
   } = service;
 
-
   const image = images[0] || "/placeholder.jpg";
 
   return (
@@ -27,7 +26,8 @@ const ServiceCard = ({ service }) => {
         <Image
           src={image}
           alt={serviceName}
-          width={768} height={300}
+          width={768}
+          height={300}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
@@ -58,12 +58,19 @@ const ServiceCard = ({ service }) => {
       </CardContent>
 
       {/* Card Footer */}
+
       <CardFooter className="px-5 pb-5 pt-0">
-        <Link href={`/services/${_id}`} 
-          className="w-full bg-rose-600 text-white hover:bg-rose-700"
+        <Link
+          href={`/services/${_id}`}
+          className="w-full bg-rose-600 hover:bg-rose-700 rounded-xl h-11 font-medium transition-all duration-300 group/button"
         >
-          View Details
-          <ArrowUpRight className="size-4" />
+          <Button
+            variant="link"
+            className="w-full text-white bg-rose-600 hover:bg-rose-700 rounded-xl h-11 font-medium transition-all duration-300 group/button"
+          >
+            View Details
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/button:translate-x-1 group-hover/button:-translate-y-1" />
+          </Button>
         </Link>
       </CardFooter>
     </Card>

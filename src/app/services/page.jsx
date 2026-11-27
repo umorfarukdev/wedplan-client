@@ -1,9 +1,9 @@
-import { getAllServices } from "@/lib/api/services";
 import ServiceCard from "@/components/services/ServiceCard";
 import { Search } from "lucide-react";
+import { getCustomerServices } from "@/lib/api/customer";
 
 const BrowseServicesPage = async () => {
-  const services = await getAllServices();
+  const services = await getCustomerServices();
 
   return (
     <main className="min-h-screen bg-background">

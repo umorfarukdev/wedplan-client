@@ -15,6 +15,7 @@ import {
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 export default async function VendorDashboard() {
   // Get authenticated session
@@ -24,6 +25,7 @@ export default async function VendorDashboard() {
 
   const user = session?.user;
 
+  const isPremium = user.subscriptionPlan === "premium";
   // Check vendor authentication
   if (!user?.id || user.role !== "vendor") {
     return (
@@ -83,6 +85,9 @@ export default async function VendorDashboard() {
       description: "Confirmed customer bookings",
     },
   ];
+
+  const activeServices =
+  stats.find((item) => item.title === "Approved & Active")?.value ?? 0;
 
   return (
     <div className="min-h-screen bg-muted/30 p-4 md:p-8">
@@ -151,37 +156,46 @@ export default async function VendorDashboard() {
               </div>
 
               <div className="flex items-center gap-2">
-                <h3 className="font-semibold">Free Plan</h3>
+                <h3 className="font-semibold">
+                  {isPremium ? "Premium Plan" : "Free Plan"}
+                </h3>
 
-                <Badge variant="secondary">Current Plan</Badge>
+                <Badge
+                  variant={isPremium ? "default" : "secondary"}
+                  className="capitalize"
+                >
+                  {isPremium ? "Premium" : "Free"}
+                </Badge>
               </div>
 
               <p className="max-w-2xl text-sm text-muted-foreground">
-                Free Plan allows up to 3 active wedding services. Upgrade to
-                Premium for unlimited services.
+                {isPremium
+                  ? "You have unlimited active wedding services."
+                  : "Free Plan allows up to 3 active wedding services. Upgrade to Premium for unlimited services."}
               </p>
 
               <p className="text-sm text-muted-foreground">
-                Active services: {dashboard?.activeServices ?? 0} / 3
+                Active services: {activeServices}
+                {isPremium ? " / Unlimited" : " / 3"}
               </p>
             </div>
+            
 
             <div className="flex flex-wrap gap-3">
-              <Link
-                href="/dashboard/vendor/overview/add-service"
-                className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-              >
-                <Plus className="mr-2 h-4 w-4" />
-                Add Service
-              </Link>
-
-              <Link
-                href="/dashboard/vendor/overview/subscription"
-                className="inline-flex items-center justify-center rounded-md border bg-background px-4 py-2 text-sm font-medium hover:bg-accent"
-              >
-                <Crown className="mr-2 h-4 w-4" />
-                Upgrade to Premium
-              </Link>
+              {isPremium ? (
+                <Button className="cursor-not-allowed bg-green-600 text-white">
+                  <Crown className="mr-2 h-4 w-4" />
+                  Premium Active
+                </Button>
+              ) : (
+                <Link
+                  href="/dashboard/vendor/subscription"
+                  className="inline-flex items-center justify-center rounded-md border bg-background px-4 py-2 text-sm font-medium hover:bg-accent"
+                >
+                  <Crown className="mr-2 h-4 w-4" />
+                  Upgrade to Premium
+                </Link>
+              )}
             </div>
           </CardContent>
         </Card>

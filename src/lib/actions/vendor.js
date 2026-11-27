@@ -1,12 +1,13 @@
-
 "use server";
 
 import { headers } from "next/headers";
 import { revalidatePath } from "next/cache";
+
 import { auth } from "@/app/lib/auth";
 import { BASE_URL } from "../api/base-url";
+import { getAuthHeaders } from "../server/auth-headers";
 
-const SERVICES_PATH = "/dashboard/vendor/overview/my-services";
+const SERVICES_PATH = "/dashboard/vendor/my-services";
 
 // Get authenticated vendor
 async function getVendorId() {
@@ -29,9 +30,9 @@ export async function updateVendorService(serviceId, serviceData) {
 
   const response = await fetch(`${BASE_URL}/services/${serviceId}`, {
     method: "PATCH",
-    headers: {
+    headers: await getAuthHeaders({
       "Content-Type": "application/json",
-    },
+    }),
     body: JSON.stringify({
       ...serviceData,
       vendorId,
@@ -46,6 +47,7 @@ export async function updateVendorService(serviceId, serviceData) {
   }
 
   revalidatePath(SERVICES_PATH);
+  revalidatePath(`/dashboard/vendor/my-services/edit/${serviceId}`);
 
   return data;
 }
@@ -61,20 +63,17 @@ export async function toggleAvailabilityAction(formData) {
     throw new Error("Service ID is required");
   }
 
-  const response = await fetch(
-    `${BASE_URL}/services/${serviceId}/availability`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        vendorId,
-        isActive: !currentStatus,
-      }),
-      cache: "no-store",
-    }
-  );
+  const response = await fetch(`${BASE_URL}/services/${serviceId}/availability`, {
+    method: "PATCH",
+    headers: await getAuthHeaders({
+      "Content-Type": "application/json",
+    }),
+    body: JSON.stringify({
+      vendorId,
+      isActive: !currentStatus,
+    }),
+    cache: "no-store",
+  });
 
   const data = await response.json();
 
@@ -99,9 +98,9 @@ export async function deleteVendorService(formData) {
 
   const response = await fetch(`${BASE_URL}/services/${serviceId}`, {
     method: "DELETE",
-    headers: {
+    headers: await getAuthHeaders({
       "Content-Type": "application/json",
-    },
+    }),
     body: JSON.stringify({ vendorId }),
     cache: "no-store",
   });

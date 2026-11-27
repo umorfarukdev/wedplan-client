@@ -1,17 +1,16 @@
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
-import { admin } from "better-auth/plugins";
 import { MongoClient } from "mongodb";
-import { admin } from "better-auth/plugins"
 
 const client = new MongoClient(process.env.MONGO_DB_URI);
 const db = client.db("weding-plan");
+
+const SELF_ASSIGNABLE_ROLES = ["customer", "vendor"];
 
 export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  plugins: [admin()],
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -25,12 +24,6 @@ export const auth = betterAuth({
         required: false,
         defaultValue: "customer",
         input: true,
-      },
-      banned: {
-        type: "boolean",
-        required: false,
-        defaultValue: false,
-        input: false,
       },
       businessName: {
         type: "string",
@@ -64,8 +57,39 @@ export const auth = betterAuth({
       },
     },
   },
+  databaseHooks: {
+    user: {
+      create: {
+        before: async (user) => {
+          const role = String(user.role || "customer").toLowerCase();
+
+          return {
+            data: {
+              ...user,
+              role: SELF_ASSIGNABLE_ROLES.includes(role) ? role : "customer",
+            },
+          };
+        },
+      },
+      update: {
+        before: async (user) => {
+          if (user.role === undefined) {
+            return;
+          }
+
+          const role = String(user.role).toLowerCase();
+
+          // Roles are never self-assigned through the public auth API.
+          if (!SELF_ASSIGNABLE_ROLES.includes(role)) {
+            return false;
+          }
+
+          return { data: { ...user, role } };
+        },
+      },
+    },
+  },
   database: mongodbAdapter(db, {
     client,
   }),
-  plugins: [admin()],
 });

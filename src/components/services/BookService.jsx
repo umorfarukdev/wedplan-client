@@ -74,8 +74,8 @@ const BookService = ({service}) => {
   };
 
   return (
-    <main className="min-h-screen bg-muted/30 px-4 py-12">
-      <div className="mx-auto max-w-2xl rounded-2xl border bg-card p-6 shadow-sm sm:p-8">
+    <main className="min-h-screen bg-muted/30 px-4">
+      <div className="mx-auto bg-card">
         <div className="mb-8">
           <h1 className="text-2xl font-bold">Book Wedding Service</h1>
 

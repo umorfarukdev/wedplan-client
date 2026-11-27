@@ -61,12 +61,7 @@ const AdminOverviewClient = ({ data }) => {
       </div>
 
       <div
-        className="
-grid 
-gap-5
-sm:grid-cols-2
-lg:grid-cols-3
-"
+        className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
       >
         {stats.map((item) => {
           const Icon = item.icon;
@@ -74,12 +69,7 @@ lg:grid-cols-3
           return (
             <Card key={item.title}>
               <CardContent
-                className="
-flex
-items-center
-justify-between
-p-6
-"
+                className="flex items-center justify-between p-6"
               >
                 <div>
                   <p className="text-sm text-muted-foreground">{item.title}</p>
@@ -88,11 +78,7 @@ p-6
                 </div>
 
                 <Icon
-                  className="
-h-10
-w-10
-text-primary
-"
+                  className="h-10 w-10 text-primary"
                 />
               </CardContent>
             </Card>

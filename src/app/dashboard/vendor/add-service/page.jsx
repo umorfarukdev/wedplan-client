@@ -21,6 +21,11 @@ import {
 } from "@/components/ui/card";
 import { createService } from "@/lib/actions/service";
 import { useSession } from "@/app/lib/auth-client";
+import {
+  MAX_IMAGE_SIZE,
+  uploadImageToImgBB,
+  validateImageFile,
+} from "@/lib/upload-image";
 
 const categories = [
   "Photography & Videography",
@@ -36,7 +41,6 @@ const categories = [
 ];
 
 const MAX_IMAGES = 6;
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 const AddServicePage = () => {
   const router = useRouter();
@@ -81,13 +85,10 @@ const AddServicePage = () => {
     const validFiles = [];
 
     for (const file of selectedFiles) {
-      if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
-        toast.error(`${file.name}: Only PNG, JPG and WebP are allowed.`);
-        continue;
-      }
+      const validationError = validateImageFile(file);
 
-      if (file.size > MAX_FILE_SIZE) {
-        toast.error(`${file.name}: Image size must be under 5MB.`);
+      if (validationError) {
+        toast.error(validationError);
         continue;
       }
 
@@ -104,33 +105,7 @@ const AddServicePage = () => {
   };
 
   // Upload image to ImgBB
-  const uploadImage = async (file) => {
-    const formData = new FormData();
-
-    formData.append("image", file);
-
-    const apiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
-
-    if (!apiKey) {
-      throw new Error("ImgBB API key is missing.");
-    }
-
-    const response = await fetch(
-      `https://api.imgbb.com/1/upload?key=${apiKey}`,
-      {
-        method: "POST",
-        body: formData,
-      },
-    );
-
-    const data = await response.json();
-
-    if (!response.ok || !data.success) {
-      throw new Error("Image upload failed.");
-    }
-
-    return data.data.url;
-  };
+  const uploadImage = async (file) => uploadImageToImgBB(file);
 
   // Submit service
   const handleSubmit = async (e) => {
@@ -172,10 +147,21 @@ const AddServicePage = () => {
       console.log("Service Data:", serviceData);
 
       const result = await createService(serviceData);
-      console.log("Service Data:", result);
+
+      if (!result.success) {
+        if (result.upgradeRequired) {
+          toast.error(result.message);
+
+          router.push("/checkout?plan=premium");
+
+          return;
+        }
+
+        toast.error(result.message || "Something went wrong.");
+        return;
+      }
 
       toast.success("Service submitted for admin review!");
-
       router.refresh();
     } catch (error) {
       console.error("Create Service Error:", error);
@@ -202,7 +188,7 @@ const AddServicePage = () => {
         {/* Header */}
         <div className="space-y-3">
           <Link
-            href="/dashboard/vendor/overview/my-services"
+            href="/dashboard/vendor/add-service"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-rose-600"
           >
             <ArrowLeft className="size-4" />

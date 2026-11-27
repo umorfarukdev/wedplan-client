@@ -1,6 +1,6 @@
 export const ROLE_HOME = {
-  admin: "/dashboard/admin",
-  vendor: "/dashboard/vendor/overview/overview",
+  admin: "/dashboard/admin/overview",
+  vendor: "/dashboard/vendor/overview",
   customer: "/dashboard/customer/overview",
 };
 

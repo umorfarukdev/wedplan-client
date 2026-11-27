@@ -7,7 +7,7 @@ const FeaturedServices = async () => {
 
   return (
     <section className="py-16">
-      <div className="container mx-auto">
+      <div className="max-w-7xl mx-auto">
         <h2 className="mb-8 text-3xl font-bold">
           Featured Wedding Services
         </h2>
