@@ -1,7 +1,6 @@
 "use server";
 
 import { BASE_URL } from "../api/base-url";
-import { getTokenClient } from "../core/getTokenClient";
 import { getAuthHeaders } from "../server/auth-headers";
 
 function normalizeUser(user) {

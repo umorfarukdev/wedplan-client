@@ -1,7 +1,6 @@
 "use server";
 
 import { BASE_URL } from "../api/base-url";
-import { getTokenClient } from "../core/getTokenClient";
 import { getAuthHeaders } from "../server/auth-headers";
 
 // Get services for the admin table (client components)
