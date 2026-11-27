@@ -1,6 +1,7 @@
 "use server";
 
 import { BASE_URL } from "../api/base-url";
+import { getTokenClient } from "../core/getTokenClient";
 import { getAuthHeaders } from "../server/auth-headers";
 
 // Get services for the admin table (client components)
@@ -34,6 +35,7 @@ export async function updateServiceStatus(id, status) {
     method: "PATCH",
     headers: await getAuthHeaders({
       "Content-Type": "application/json",
+      // authorization: `Bearer ${await getTokenClient()}`,
     }),
     body: JSON.stringify({
       status,
@@ -55,6 +57,7 @@ export async function toggleServiceActive(id, isActive) {
     method: "PATCH",
     headers: await getAuthHeaders({
       "Content-Type": "application/json",
+      // authorization: `Bearer ${await getTokenClient()}`,
     }),
     body: JSON.stringify({
       isActive,
@@ -74,7 +77,9 @@ export async function toggleServiceActive(id, isActive) {
 export async function deleteService(id) {
   const response = await fetch(`${BASE_URL}/admin/services/${id}`, {
     method: "DELETE",
-    headers: await getAuthHeaders(),
+    headers: await getAuthHeaders({
+      // authorization: `Bearer ${await getTokenClient()}`,
+    }),
   });
 
   const data = await response.json();

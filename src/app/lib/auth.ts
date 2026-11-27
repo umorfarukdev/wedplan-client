@@ -1,6 +1,7 @@
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
 import { MongoClient } from "mongodb";
+import { jwt } from "better-auth/plugins"
 
 const client = new MongoClient(process.env.MONGO_DB_URI);
 const db = client.db("weding-plan");
@@ -10,6 +11,15 @@ const SELF_ASSIGNABLE_ROLES = ["customer", "vendor"];
 export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
+    autoSignIn: false,
+  },
+  plugins: [jwt()],
+  session: {
+    cookieCache: {
+      enabled: true,
+      strategy: "jwt",
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    }
   },
   socialProviders: {
     google: {

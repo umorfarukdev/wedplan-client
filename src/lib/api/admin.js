@@ -1,9 +1,12 @@
+import { getTokenServer } from "../core/getTokenServer";
 import { BASE_URL } from "./base-url";
 import { getAuthHeaders } from "@/lib/server/auth-headers";
 
 export const getAdminOverview = async () => {
   const res = await fetch(`${BASE_URL}/admin/dashboard`, {
-    headers: await getAuthHeaders(),
+    headers: await getAuthHeaders({
+      // authorization: `Bearer ${await getTokenServer()}`,
+    }),
     cache: "no-store",
   });
 
@@ -41,7 +44,7 @@ export async function getAdminServices(params = {}) {
 // Get all payment transactions (admin)
 export async function getAdminTransactions() {
   const response = await fetch(`${BASE_URL}/admin/transactions`, {
-    headers: await getAuthHeaders(),
+    headers: await getAuthHeaders( ),
     cache: "no-store",
   });
 
