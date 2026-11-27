@@ -1,4 +1,3 @@
-import { getTokenServer } from "../core/getTokenServer";
 import { BASE_URL } from "./base-url";
 import { getAuthHeaders } from "@/lib/server/auth-headers";
 
